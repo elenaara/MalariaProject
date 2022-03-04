@@ -114,6 +114,30 @@ Convert to fasta files:
 ```
 gffParse.pl -i ../3_blast/only_ht.fna -g only_ht.gtf -c -p -b only_ht
 ```
+Get some data about the files:
+- Genome size:
+```
+for file in *.genome; do echo $file; cat $file | grep -v '>' | tr -d '\n\s' | wc -c; done
+```
+- Genes:
+```
+for file in *.gtf; do echo $file; cat $file | grep 'CDS' | cut -f 9 | cut -d ';' -f 1 | sort -u | wc -l; done
+```
+- Genomic GC -> python script genomic_gc.py
+```
+for file in *.genome; do python genomic_gc.py $file ; done
+```
+
+| Species | Host | Genome size | Genes |  Genomic GC   |
+| ------- | ---- | ----------- | ----- | ------------- |
+| Plasmodium berghei | rodents | 17,954,629 | 7282 | 23.72% |
+| Plasmodium cynomolgi | macaques | 26,181,343 | 5787 | 40.38% |
+| Plasmodium falciparum | humans | 23,270,305 | 5207 | 19.36% |
+| Plasmodium knowlesi | lemures | 23,462,332 | 4953 | 38.83% |
+| Plasmodium vivax | humans | 27,007,701 | 5682 | 42.28% |
+| Plasmodium yoelii | rodents | 22,222,369 | 4919 | 21.77% |
+| Haemoproteus tartakovskyi | birds | 20,431,038 | 4108 | 28.56%|
+| Toxoplasma gondii | humans | 128,105,889 | 4193 | 52.35% |
 
 # Phylogenetic Trees
 
